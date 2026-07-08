@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मातृभूमि सेवा संस्थान | महा डिजिटल पोर्टल</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #f4f6f9; color: #333; padding-bottom: 50px; }
+
+        /* Top Govt Style Bar */
+        .top-bar { background-color: #0d47a1; color: white; padding: 10px; text-align: center; font-weight: bold; position: relative; font-size: 13px; }
+        .menu-bar-btn { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+        
+        /* Govt Registration Details Header Bar */
+        .govt-details-bar { background: #fff3cd; text-align: center; padding: 6px; font-size: 12px; font-weight: bold; border-bottom: 1px solid #ff9800; display: flex; justify-content: space-around; flex-wrap: wrap; }
+
+        header { background: #fff; padding: 20px; text-align: center; border-bottom: 5px solid #ff9800; }
+        .logo-section h1 { color: #b71c1c; font-size: 28px; font-weight: 900; }
+        .logo-section p { color: #002147; font-size: 14px; font-weight: bold; margin-top: 4px; }
+        .header-slogan { font-style: italic; color: #555; font-size: 13px; margin-top: 8px; font-weight: bold; }
+
+        .dynamic-logo-box { width: 90px; height: 90px; background: #eaedf1; border: 2px dashed #0d47a1; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 11px; }
+        .dynamic-logo-box img { width: 100%; height: 100%; object-fit: contain; }
+        
+        /* Side Hamburger Menu */
+        .side-menu { position: fixed; top: 0; left: -280px; width: 280px; height: 100%; background: #b71c1c; z-index: 9999; transition: 0.3s; padding-top: 20px; box-shadow: 5px 0 15px rgba(0,0,0,0.3); }
+        .side-menu.open { left: 0; }
+        .menu-slogan { background: #ff9800; color: #000; padding: 10px; margin: 10px; text-align: center; font-weight: bold; border-radius: 4px; font-size: 13px; border-left: 4px solid #fff; }
+        .side-menu button { display: block; width: 100%; padding: 15px; background: none; border: none; color: white; text-align: left; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.1); cursor: pointer; }
+        .side-menu button:hover { background: #ff9800; color: #000; }
+        .menu-backdrop { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9998; display: none; }
+        .menu-backdrop.show { display: block; }
+
+        .container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+        
+        /* VIP Profile Grid */
+        .vip-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+        .leader-card { background: white; padding: 10px; text-align: center; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-top: 4px solid #0d47a1; }
+        .leader-img-box { width: 90px; height: 110px; background: #eaedf1; margin: 0 auto 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #ccc; border-radius: 4px; font-size: 11px; }
+        .leader-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .leader-card h4 { color: #b71c1c; font-size: 14px; margin-bottom: 2px; }
+        .leader-card p { font-size: 11px; color: #002147; font-weight: bold; }
+
+        /* Banner Slider */
+        .slider-container { width: 100%; height: 260px; background: #e0e0e0; border: 2px solid #fff; overflow: hidden; position: relative; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .slider-slide { width: 100%; height: 100%; display: none; justify-content: center; align-items: center; background: #fafafa; }
+        .slider-slide.active { display: flex; }
+        .slider-slide img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        /* 12 Services Dynamic Photo Cards Layout */
+        .services-title { color: #b71c1c; font-size: 20px; font-weight: bold; margin: 20px 0 15px; text-align: center; border-bottom: 2px solid #ff9800; padding-bottom: 5px; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 15px; margin-bottom: 30px; }
+        .service-card { background: white; border: 1px solid #ddd; border-top: 4px solid #0d47a1; border-radius: 6px; padding: 15px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .service-card h3 { color: #b71c1c; font-size: 15px; margin-bottom: 8px; background: #f0f4f8; padding: 6px; border-radius: 4px; font-weight: bold; }
+        
+        /* Scheme Dynamic Image Box Setup */
+        .scheme-img-container { width: 100%; height: 120px; background: #eaedf1; margin-bottom: 10px; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #777; border: 1px dashed #ccc; }
+        .scheme-img-container img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .service-card p { font-size: 12px; color: #555; line-height: 1.4; margin-bottom: 12px; font-weight: 500; }
+        .service-apply-btn { background: #ff9800; color: black; border: none; padding: 8px 12px; font-weight: bold; font-size: 13px; border-radius: 4px; cursor: pointer; width: 100%; }
+        .service-apply-btn:hover { background: #138808; color: white; }
+
+        /* Admin Dashboard & Forms Controls */
+        .portal-section { background: white; padding: 20px; border-top: 4px solid #ff9800; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        .portal-section h2 { color: #0d47a1; margin-bottom: 15px; font-size: 18px; border-bottom: 2px solid #eee; padding-bottom: 8px; }
+        
+        .admin-upload-panel { background: #fff3cd; border: 2px dashed #ff9800; padding: 15px; border-radius: 6px; margin-bottom: 20px; }
+        .admin-upload-panel h3 { color: #b71c1c; font-size: 15px; margin-bottom: 10px; }
+        .upload-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+        .upload-item { background: white; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .upload-item input { margin-top: 4px; width: 100%; }
+
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 13px; }
+        .form-group input, .form-group select { width: 100%; padding: 11px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; }
+        .btn-submit { background: #b71c1c; color: white; padding: 12px 20px; border: none; cursor: pointer; font-weight: bold; width: 100%; border-radius: 4px; font-size: 16px; text-align: center; }
+
+        /* Table Records Panel */
+        .table-responsive { overflow-x: auto; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 13px; vertical-align: middle; }
+        th { background-color: #0d47a1; color: white; }
+        
+        .status-Pending { color: #ff9800; font-weight: bold; background: #fff3cd; padding: 2px 6px; border-radius: 3px; }
+        .status-Approved { color: #2e7d32; font-weight: bold; background: #e8f5e9; padding: 2px 6px; border-radius: 3px; }
+        .status-Rejected { color: #b71c1c; font-weight: bold; background: #ffebee; padding: 2px 6px; border-radius: 3px; }
+        
+        .btn-approve { background: #2e7d32; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 3px; font-weight: bold; font-size: 12px; }
+        .btn-reject { background: #b71c1c; color: white; border: none; padding: 5px 8px; cursor: pointer; border-radius: 3px; font-weight: bold; font-size: 12px; }
+        .thumb-preview { width: 50px; height: 50px; object-fit: cover; border: 1px solid #ccc; border-radius: 4px; }
+
+        .hidden { display: none !important; }
+        footer { background: #002147; color: white; padding: 20px; text-align: center; font-size: 12px; margin-top: 30px; line-height: 1.8; }
+        .footer-bank-info { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 4px; margin: 10px auto; max-width: 500px; border: 1px dashed rgba(255,255,255,0.3); }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Blue Bar -->
+    <div class="top-bar">
+        <button class="menu-bar-btn" onclick="toggleMenu()">☰</button>
+        मातृभूमि सेवा संस्थान | लाइव ट्रैकिंग एवं महा नियंत्रण डेटाबेस बोर्ड
+    </div>
+
+    <!-- Govt Identifiers Sub-Header Line -->
+    <div class="govt-details-bar">
+        <span><b>CIN No:</b> U88900UP2026NPL247547</span>
+        <span><b>DARPAN ID:</b> UP/2026/1080829</span>
+    </div>
+
+    <!-- Sidebar Drawer Menu Drawer Links -->
+    <div class="menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
+    <div class="side-menu" id="sideMenu">
+        <div style="color:white; padding:10px 20px; text-align:right; font-weight:bold;"><button onclick="toggleMenu()" style="background:none; border:none; color:white; font-size:24px; cursor:pointer;">×</button></div>
+        <div class="menu-slogan">🚩 लगाकर भूखे को दावत खिलाया।</div>
+        <div class="side-menu-links">
+            <button id="btn-tab-public" class="active" onclick="switchView('public')">👥 होम और सेवाएं</button>
+            <button id="btn-tab-track" onclick="switchView('track')">🔍 स्थिति जांचें (Track)</button>
+            <button id="btn-tab-officer" onclick="switchView('officer')">🔐 अधिकारी पैनल</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="logo-section">
+            <div class="dynamic-logo-box" id="main-logo-container">[ मुख्य लोगो ]</div>
+            <h1>मातृभूमि सेवा संस्थान</h1>
+            <p>जन कल्याण, रोजगार एवं सामाजिक विकास पोर्टल, उत्तर प्रदेश</p>
+            <div class="header-slogan">"हाथ जो सेवा के लिये उठते हैं, वे प्रार्थना करने वाले होठों से कहीं अधिक पवित्र होते हैं।"</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- VIP PROFILE PANELS -->
+        <div class="vip-grid">
+            <div class="leader-card"><div class="leader-img-box" id="box-pm">[ PM फोटो ]</div><h4>श्री नरेंद्र मोदी</h4><p>माननीय प्रधानमंत्री</p></div>
+            <div class="leader-card"><div class="leader-img-box" id="box-cm">[ CM फोटो ]</div><h4>योगी आदित्यनाथ</h4><p>माननीय मुख्यमंत्री</p></div>
+            <div class="leader-card" style="border-top-color: #138808;"><div class="leader-img-box" id="box-collector">[ कलेक्टर फोटो ]</div><h4>माननीय जिला कलेक्टर</h4><p>जिला नियंत्रण अधिकारी</p></div>
+            <div class="leader-card"><div class="leader-img-box" id="box-pres">[ अध्यक्ष फोटो ]</div><h4>नीरज कुमार निषाद</h4><p>राष्ट्रीय अध्यक्ष / संस्थापक</p></div>
+            <div class="leader-card"><div class="leader-img-box" id="box-sec">[ सचिव फोटो ]</div><h4>संस्था सचिव</h4><p>राष्ट्रीय सचिव</p></div>
+        </div>
+
+        <!-- ================= OFFICER CONTROLS UPLOADER BOARD ================= -->
+        <div class="admin-upload-panel hidden" id="vipUploadPanel">
+            <h3>⚙️ मास्टर कंट्रोल एडमिन बोर्ड (लोगो, वीआईपी एवं 12 योजना फोटो अपलोडर)</h3>
+            <div class="upload-grid">
+                <div class="upload-item" style="background:#e3f2fd;">🏢 मुख्य वेबसाइट लोगो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'main-logo-container')"></div>
+                <div class="upload-item">👤 प्रधानमंत्री फोटो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-pm')"></div>
+                <div class="upload-item">👤 मुख्यमंत्री फोटो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-cm')"></div>
+                <div class="upload-item">👤 जिला कलेक्टर फोटो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-collector')"></div>
+            </div>
+            
+            <!-- 🚩 12 योजनाओं के लिए फोटो अपलोडर कंट्रोल्स ग्रिड -->
+            <h4 style="font-size:12px; color:#b71c1c; margin:15px 0 5px 0;">🖼️ सभी 12 योजनाओं की तस्वीरें यहाँ से बदलें:</h4>
+            <div class="upload-grid">
+                <div class="upload-item">🌳 1. पर्यावरण क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-env')"></div>
+                <div class="upload-item">💻 2. शिक्षा क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-edu')"></div>
+                <div class="upload-item">👔 3. रोजगार क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-emp')"></div>
+                <div class="upload-item">🏥 4. स्वास्थ्य क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-health')"></div>
+                <div class="upload-item" style="background:#fffde7;">🏛️ 5. सरकारी योजनाएं:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-gov')"></div>
+                <div class="upload-item">⛲ 6. सार्वजनिक स्थान:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-pub')"></div>
+                <div class="upload-item">🌾 7. कृषि क्षेत्र:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-agri')"></div>
+                <div class="upload-item">🤝 8. कन्या विवाह:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-marriage')"></div>
+                <div class="upload-item">⚖️ 9. कानूनी सहायता:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-law')"></div>
+                <div class="upload-item">👶 10. अनाथ कल्याण:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-orphan')"></div>
+                <div class="upload-item">👴 11. वृद्धा आश्रम:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-oldage')"></div>
+                <div class="upload-item">🌋 12. प्राकृतिक आपदा:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'img-disaster')"></div>
+            </div>
+
+            <div class="upload-grid" style="margin-top:10px;">
+                <div class="upload-item">👤 अध्यक्ष फोटो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-pres')"></div>
+                <div class="upload-item">👤 सचिव फोटो:<input type="file" accept="image/*" onchange="loadDynamicPhoto(event, 'box-sec')"></div>
+            </div>
+            <div class="upload-item" style="margin-top: 10px; background: #e8f5e9;">
+                📸 मुख्य रोटेशन स्लाइडर की 4 फोटो एक साथ चुनें:
+                <input type="file" accept="image/*" multiple onchange="loadSliderPhotos(event)">
+            </div>
+
+            <div class="id-change-box">
+                <h4>🛡️ अपनी नई कस्टम अधिकारी आईडी और पासवर्ड सेट करें:</h4>
+                <div style="display: flex; gap: 10px; margin-top: 5px;">
+                    <input type="text" id="new-admin-user" placeholder="नया यूज़रनेम" style="padding:6px; font-size:13px; width:45%;">
+                    <input type="text" id="new-admin-pass" placeholder="नया पासवर्ड" style="padding:6px; font-size:13px; width:45%;">
+                    <button onclick="updateAdminCredentials()" style="background:#2e7d32; color:white; border:none; padding:5px 10px; border-radius:3px; cursor:pointer; font-size:12px; font-weight:bold;">सेव करें</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider Banner Container -->
+        <div class="slider-container" id="sliderContainer">
+            <div style="color: #555; text-align: center; padding: 20px; font-weight: bold;">
+                [संस्था के कार्यों की 4 फोटो अपलोड करें, वे यहाँ घूमने लगेंगी]
+            </div>
+        </div>
+
+        <!-- ================= VIEW 1: MASTER 12 SERVICES GRID WITH LIVE PHOTOS ================= -->
+        <div id="wrapper-public-view">
+            <div class="services-title">🚩 हमारी 12 जन-कल्याणकारी सेवाएं (पर्चे के अनुसार विवरण)</div>
+            <div class="services-grid">
+                
+                <!-- 1. पर्यावरण -->
+                <div class="service-card">
+                    <h3>पर्यावरण का क्षेत्र</h3>
+                    <div class="scheme-img-container" id="img-env">[ पर्यावरण फोटो ]</div>
+                    <p>फलदार व छायादार वृक्षारोपण एवं वृक्षों व पौधों का रख-रखाव</p>
+                    <button class="service-apply-btn" onclick="selectService('पर्यावरण का क्षेत्र')">अप्लाई करें</button>
+                </div>
+
+                <!-- 2. शिक्षा -->
+                <div class="service-card">
+                    <h3>शिक्षा का क्षेत्र</h3>
+                    <div class="scheme-img-container" id="img-edu">[ शिक्षा फोटो ]</div>
+                    <p>क्षेत्रीय बच्चों की उत्तम शिक्षा का निःशुल्क प्रबन्धन व कम्प्यूटर शिक्षा की व्यवस्था</p>
+                    <button class="service-apply-btn" onclick="selectService('शिक्षा का क्षेत्र')">अप्लाई करें</button>
+                </div>
+
+                <!-- 3. रोजगार -->
+                <div class="service-card">
+                    <h3>रोजगार का क्षेत्र</h3>
+                    <div class="scheme-img-container" id="img-emp">[ रोजगार फोटो ]</div>
+                    <p>रोजगार हेतु युवाओं का कौशल विकास व रोजगार के अवसर प्रदान करना व स्वरोजगार हेतु प्रोत्साहन</p>
+                    <button class="service-apply-btn" onclick="selectService('रोजगार का क्षेत्र')">अप्लाई करें</button>
+                </div>
+
+                <!-- 4. स्वास्थ्य -->
+                <div class="service-card">
+                    <h3>स्वास्थ्य का क्षेत्र</h3>
+                    <div class="scheme-img-container" id="img-health">[ स्वास्थ्य फोटो ]</div>
+                    <p>स्वास्थ्य शिविर का आयोजन व आँखों का ऑपरेशन जैसी गंभीर बीमारियों में सहायता</p>
+                    <button class="service-apply-btn" onclick="selectService('स्वास्थ्य का क्षेत्र')">अप्लाई करें</button>
+                </div>
+
+                <!-- 5. सरकारी योजनायें -->
+                <div class="service-card" style="background:#fffde7; border-top-color:#ff9800;">
+                    <h3>सरकारी योजनायें</h3>
+                    <div class="scheme-img-container" id="img-gov">[ सरकारी योजना फोटो ]</div>
+                    <p>सरकारी योजनाओं को हर जरूरतमंद तक पहुँचाना व लाभान्वित कराने में सहायता</p>
+                    <button class="service-apply-btn" onclick="selectService('सरकारी योजनायें')">अप्लाई करें</button>
+                </div>
+
+                <!-- 6. सार्वजनिक स्थान -->
+                <div class="service-card">
+                    <h3>सार्वजनिक स्थान</h3>
+                    <div class="scheme-img-container" id="img-pub">[ सार्वजनिक स्थान फोटो ]</div>
+                    <p>सार्वजनिक स्थानों पर बैठने व वाटर कूलर आदि की स्थापना व रख-रखाव</p>
+                    <button class="service-apply-btn" onclick="selectService('सार्वजनिक स्थान कार्य')">अप्लाई करें</button>
+                </div>
+
+                <!-- 7. कृषि का क्षेत्र -->
+                <div class="service-card">
+                    <h3>कृषि का क्षेत्र</h3>
+                    <div class="scheme-img-container" id="img-agri">[ कृषि फोटो ]</div>
+                    <p>किसानों हेतु सिंचाई व कृषि उपकरण आदि का निःशुल्क प्रबन्धन</p>
+                    <button class="service-apply-btn" onclick="selectService('कृषि का क्षेत्र')">अप्लाई करें</button>
+                </div>
+
+                <!-- 8. कन्या विवाह -->
+                <div class="service-card">
+                    <h3>कन्या विवाह</h3>
+                    <div class="scheme-img-container" id="img-marriage">[ कन्या विवाह फोटो ]</div>
+                    <p>गरीब परिवारों की कन्याओं का सामूहिक विवाह व अन्य धार्मिक कार्य</p>
+                    <button class="service-apply-btn" onclick="selectService('कन्या विवाह योजना')">अप्लाई करें</button>
+                </div>
+
+                <!-- 9. कानूनी सहायता -->
+                <div class="service-card">
+                    <h3>कानूनी सहायता</h3>
+                    <div class="scheme-img-container" id="img-law">[ कानूनी सहायता फोटो ]</div>
+                    <p>प्रत्येक नागरिक के मूल अधिकारों की रक्षा व जागरूकता तथा सभी सम्भव कानूनी सहायता</p>
+                    <button class="service-apply-btn" onclick="selectService('कानूनी सहायता')">अप्लाई करें</button>
+                </div>
+
+                <!-- 10. अनाथ -->
+                <div class="service-card">
+                    <h3>अनाथ</h3>
+                    <div class="scheme-img-container" id="img-orphan">[ अनाथालय फोटो ]</div>
+                    <p>अनाथ आलय की स्थापना एवं संचालन</p>
+                    <button class="service-apply-btn" onclick="selectService('अनाथ कल्याण योजना')">अप्लाई करें</button>
+                </div>
+
+                <!-- 11. वृद्धा आश्रम -->
+                <div class="service-card">
+                    <h3>वृद्धा आश्रम</h3>
+                    <div class="scheme-img-container" id="img-oldage">[ वृद्धा आश्रम फोटो ]</div>
+                    <p>बुजुर्गों के आश्रम व रहन सहन की व्यवस्था एवं प्रबन्धन करना</p>
+                    <button class="service-apply-btn" onclick="selectService('वृद्धा आश्रम सहायता')">अप्लाई करें</button>
+                </div>
+
+                <!-- 12. प्राकृतिक आपदा -->
+                <div class="service-card">
+                    <h3>प्राकृतिक आपदा</h3>
+                    <div class="scheme-img-container" id="img-disaster">[ प्राकृतिक आपदा फोटो ]</div>
+                    <p>प्राकृतिक आपदाओं से क्षतिग्रस्तों की सम्भव सहायता करना</p>
+                    <button class="service-apply-btn" onclick="selectService('प्राकृतिक आपदा राहत')">अप्लाई करें</button>
+                </div>
+
+            </div>
+
+            <!-- PUBLIC REGISTRATION FORM -->
+            <div class="portal-section" id="form-scroll-anchor">
+                <h2>📝 जन कल्याण पंजीकरण एवं दस्तावेज अपलोड फॉर्म</h2>
+                <form onsubmit="saveApplicantToDB(event)">
+                    <div class="form-group"><label>चयनित सेवा/योजना</label><input type="text" id="reg-service" readonly style="background:#eee; font-weight:bold; color:#b71c1c;" placeholder="ऊपर से सेवा चुनें" required></div>
+                    <div class="form-group"><label>आवेदक का पूरा नाम</label><input type="text" id="reg-name" required></div>
+                    <div class="form-group"><label>मोबाइल नंबर</label><input type="tel" id="reg-phone" maxlength="10" pattern="[0-9]{10}" required></div>
+                    <div class="form-group"><label>स्थायी पता (Address)</label><input type="text" id="reg-address" required></div>
+                    <div class="form-group" style="background:#f1f5f9; padding:10px; border-radius:4px;"><label>📸 आवेदक की फोटो अपलोड करें</label><input type="file" id="reg-photo" accept="image/*" required></div>
+                    <div class="form-group" style="background:#f1f5f9; padding:10px; border-radius:4px;"><label>📄 आवश्यक दस्तावेज अपलोड करें (Aadhaar/PDF/Image)</label><input type="file" id="reg-doc" accept="image/*,application/pdf" required></div>
+                    <button type="submit" class="btn-submit" style="background:#138808;">डेटाबेस में सुरक्षित फॉर्म जमा करें</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ================= VIEW 2: PUBLIC LIVE STATUS TRACKING ================= -->
+        <div id="wrapper-track-view" class="portal-section hidden">
+            <h2>🔍 अपना आवेदन लाइव ट्रैक करें (Check Status)</h2>
+            <div class="form-group" style="margin-top: 15px;">
+                <label>अपना ट्रैकिंग ID दर्ज करें (उदा: MTB12345):</label>
+                <input type="text" id="input-track-id" placeholder="यहाँ अपनी रसीद ID लिखें">
+            </div>
+            <button class="btn-submit" onclick="trackApplicantStatus()">लाइव स्थिति देखें</button>
+            <div id="track-result-box" class="hidden" style="margin-top: 20px; padding: 15px; border: 1px dashed #ccc; background: #fafafa; border-radius: 4px;"></div>
+        </div>
+
+        <!-- ================= VIEW 3: OFFICER SECURE LOGIN ================= -->
+        <div id="view-officer-login" class="portal-section hidden">
+            <h2>🔐 अधिकारी नियंत्रण लॉगिन</h2>
+            <form onsubmit="handleOfficerLogin(event)">
+                <div class="form-group"><label>अधिकारी कस्टम यूजर आईडी</label><input type="text" id="off-user" placeholder="यूज़र आईडी डालें" required></div>
+                <div class="form-group"><label>पासवर्ड</label><input type="password" id="off-pass" placeholder="पासवर्ड डालें" required></div>
+                <button type="submit" class="btn-submit">डैशबोर्ड खोलें</button>
+            </form>
+        </div>
+
+        <!-- ================= VIEW 4: OFFICER LIVE DATABASE DASHBOARD ================= -->
+        <div id="view-officer-dashboard" class="portal-section hidden">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="color: #2e7d32;">📊 लाइव एडमिन डेटाबेस डैशबोर्ड (प्राप्त आवेदन)</h3>
+                <button onclick="logoutOfficer()" style="background:#b71c1c; color:white; border:none; padding:6px 12px; cursor:pointer; border-radius:4px; font-weight:bold;">लॉगआउट पैनल</button>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ट्रैकिंग ID</th>
+                            <th>फोटो</th>
+                            <th>नाम/मोबाइल</th>
+                            <th>सेवा क्षेत्र</th>
+                            <th>दस्तावेज</th>
+                            <th>स्थिति</th>
+                            <th>कार्रवाई (Action)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-database-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Official Banner Organization Details Footer -->
+    <footer>
+        <p><b>राष्ट्रीय अध्यक्ष / संस्थापक:</b> नीरज कुमार निषाद | <b>मोबाइल नंबर:</b> +91 9454391778</p>
+        <p><b>ईमेल आईडी:</b> matrabhumi.org@gmail.com</p>
+        
+        <div class="footer-bank-info">
+            🏛️ <b>संस्था बैंक खाता विवरण (Bank Details)</b><br>
+            <b>बैंक का नाम:</b> State Bank of India | <b>A/c No:</b> 45243554345<br>
+            <b>IFSC Code:</b> SBIN0064993
+        </div>
+
+        <p style="margin-top:15px; font-size:11px; opacity:0.8;"><b>पंजीकृत कार्यालय:</b> भजनपुरा पो० बिटौली पंचनद धाम, इटावा - 206125</p>
+        <p style="font-size:11px; opacity:0.8;"><b>वर्तमान कार्यालय:</b> जगम्मनपुर रोड बरगद के पास, मढ़ेपुरा (शिवगंज) पंचनद धाम, जालौन - 285124</p>
+        <p style="margin-top:10px; font-weight:bold; color:#ff9800;">"एक छोटा सा योगदान, बदल सकता है किसी का जहान।"</p>
+    </footer>
+
+    <script>
+        let db = null;
+        let slideIndex = 0;
+        let slideInterval = null;
+
+        if(!localStorage.getItem('adminUser')) localStorage.setItem('adminUser', 'admin');
+        if(!localStorage.getItem('adminPass')) localStorage.setItem('adminPass', '12345');
+
+        // IndexedDB व्यवस्था सेटअप
+        const dbRequest = indexedDB.open("MatrabhumiMegaDB", 1);
+        dbRequest.onupgradeneeded = function(e) {
+            db = e.target.result;
+            db.createObjectStore("applicants", { keyPath: "trackId" });
+        };
+        dbRequest.onsuccess = function(e) { db = e.target.result; };
+
+        function toggleMenu() {
+            document.getElementById("sideMenu").classList.toggle("open");
+            document.getElementById("menuBackdrop").classList.toggle("show");
+        }
+
+        function selectService(name) {
+            document.getElementById("reg-service").value = name;
+            document.getElementById("form-scroll-anchor").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function saveApplicantToDB(e) {
+            e.preventDefault();
+            const photoFile = document.getElementById("reg-photo").files[0];
+            const docFile = document.getElementById("reg-doc").files[0];
+            const generatedTrackId = "MTB" + Math.floor(Math.random() * 90000 + 10000);
+
+            const photoReader = new FileReader();
+            photoReader.onload = function(ePhoto) {
+                const docReader = new FileReader();
+                docReader.onload = function(eDoc) {
+                    const applicantData = {
+                        trackId: generatedTrackId,
+                        name: document.getElementById("reg-name").value,
+                        phone: document.getElementById('reg-phone').value,
+                        service: document.getElementById('reg-service').value,
+                        address: document.getElementById('reg-address').value,
+                        photo: ePhoto.target.result,
+                        document: eDoc.target.result,
+                        docType: docFile.type,
+                        status: 'Pending', 
+                        date: new Date().toLocaleDateString()
+                    };
+                    const tx = db.transaction(["applicants"], "readwrite");
+                    tx.objectStore("applicants").add(applicantData);
+                    tx.oncomplete = function() {
+                        alert(`🎉 बधाई हो! फॉर्म सफलतापूर्वक सुरक्षित जमा हो गया है।\n\nआपकी ट्रैकिंग ID है: ${generatedTrackId}`);
+                        e.target.reset();
+                    };
+                };
+                docReader.readAsDataURL(docFile);
+            };
+            photoReader.readAsDataURL(photoFile);
+        }
+
+        function trackApplicantStatus() {
+            const searchId = document.getElementById("input-track-id").value.trim().toUpperCase();
+            const resultBox = document.getElementById("track-result-box");
+            if(searchId === "") { alert("कृपया ट्रैकिंग ID दर्ज करें!"); return; }
+
+            const tx = db.transaction(["applicants"], "readonly");
+            const req = tx.objectStore("applicants").get(searchId);
+            req.onsuccess = function() {
+                if(req.result) {
+                    const data = req.result;
+                    resultBox.classList.remove("hidden");
+                    let statusText = data.status === 'Pending' ? '⏳ Pending (प्रतीक्षा में)' : (data.status === 'Approved' ? '✅ Approved (स्वीकृत)' : '❌ Rejected (अस्वीकृत)');
+                    resultBox.innerHTML = `<p>👤 <b>नाम:</b> ${data.name}</p><p>💼 <b>सेवा क्षेत्र:</b> ${data.service}</p><p>📊 <b>स्थिति:</b> <span class="status-${data.status}">${statusText}</span></p>`;
+                } else {
+                    resultBox.classList.remove("hidden");
+                    resultBox.innerHTML = `<span style="color:red;">❌ रिकॉर्ड नहीं मिला! कृपया सही ID जांचें।</span>`;
+                }
+            };
+        }
+
+        function renderLiveDatabase() {
+            const tbody = document.getElementById("admin-database-tbody");
+            tbody.innerHTML = "";
+            const tx = db.transaction(["applicants"], "readonly");
+            const cursorReq = tx.objectStore("applicants").openCursor();
+            let hasRecords = false;
+
+            cursorReq.onsuccess = function(e) {
+                const cursor = e.target.result;
+                if (cursor) {
+                    hasRecords = true;
+                    const record = cursor.value;
+                    const tr = document.createElement("tr");
+                    let docHtml = `<a class="doc-link" href="${record.document}" download="Doc">💾 डाउनलोड</a>`;
+                    if(record.docType.includes("image")) docHtml = `<img src="${record.document}" class="thumb-preview" onclick="window.open('${record.document}')">`;
+
+                    tr.innerHTML = `
+                        <td><b>${record.trackId}</b></td>
+                        <td><img src="${record.photo}" class="thumb-preview" onclick="window.open('${record.photo}')"></td>
+                        <td><b>${record.name}</b><br><small>${record.phone}</small></td>
+                        <td><small>${record.service}</small></td>
+                        <td>${docHtml}</td>
+                        <td><span class="status-${record.status}">${record.status}</span></td>
+                        <td>
+                            <button class="btn-approve" onclick="updateApplicationStatus('${record.trackId}', 'Approved')">Approve</button>
+                            <button class="btn-reject" onclick="updateApplicationStatus('${record.trackId}', 'Rejected')">Reject</button>
+                            <button onclick="removeRecord('${record.trackId}')" style="background:gray; color:white; border:none; padding:4px 6px; cursor:pointer; border-radius:3px; display:block; margin-top:5px; font-size:11px;">ح डिलीट</button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                    cursor.continue();
+                } else if (!hasRecords) {
+                    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">कोई रिकॉर्ड उपलब्ध नहीं है।</td></tr>`;
+                }
+            };
+        }
+
+        function updateApplicationStatus(targetTrackId, newStatus) {
+            const tx = db.transaction(["applicants"], "readwrite");
+            const store = tx.objectStore("applicants");
+            const req = store.get(targetTrackId);
+            req.onsuccess = function() {
+                const data = req.result;
+                if (data) {
+                    data.status = newStatus;
+                    store.put(data).onsuccess = function() {
+                        alert(`आईडी ${targetTrackId} स्थिति को स्वीकृत/अस्वीकृत कर दिया गया है।`);
+                        renderLiveDatabase();
+                    };
+                }
+            };
+        }
+
+        function removeRecord(id) {
+            if(confirm("क्या रिकॉर्ड हमेशा के लिए हटाना चाहते हैं?")) {
+                const tx = db.transaction(["applicants"], "readwrite");
+                tx.objectStore("applicants").delete(id);
+                tx.oncomplete = function() { renderLiveDatabase(); };
+            }
+        }
+
+        function loadDynamicPhoto(event, targetId) {
+            const file = event.target.files[0];
+            if (!file) return;
+            document.getElementById(targetId).innerHTML = `<img src="${URL.createObjectURL(file)}" alt="Live Graphic">`;
+        }
+
+        function loadSliderPhotos(event) {
+            const files = event.target.files;
+            if (files.length === 0) return;
+            const container = document.getElementById("sliderContainer");
+            container.innerHTML = ""; 
+            for (let i = 0; i < files.length; i++) {
+                const slide = document.createElement("div");
+                slide.className = `slider-slide ${i === 0 ? 'active' : ''}`;
+                slide.innerHTML = `<img src="${URL.createObjectURL(files[i])}" alt="Slide">`;
+                container.appendChild(slide);
+            }
+            if(slideInterval) clearInterval(slideInterval);
+            slideInterval = setInterval(() => {
+                const slides = document.getElementsByClassName("slider-slide");
+                if(slides.length === 0) return;
+                slides[slideIndex].classList.remove("active");
+                slideIndex = (slideIndex + 1) % slides.length;
+                slides[slideIndex].classList.add("active");
+            }, 3000);
+        }
+
+        function updateAdminCredentials() {
+            const newUser = document.getElementById("new-admin-user").value.trim();
+            const newPass = document.getElementById("new-admin-pass").value.trim();
+            if(newUser === "" || newPass === "") { alert("दोनों बॉक्स भरें!"); return; }
+            localStorage.setItem('adminUser', newUser);
+            localStorage.setItem('adminPass', newPass);
+            alert(`क्रेडेंशियल अपडेट हुआ!`);
+        }
+
+        function switchView(view) {
+            document.getElementById('wrapper-public-view').classList.add('hidden');
+            document.getElementById('wrapper-track-view').classList.add('hidden');
+            document.getElementById('view-officer-login').classList.add('hidden');
+            document.getElementById('view-officer-dashboard').classList.add('hidden');
+            
+            document.getElementById('btn-tab-public').classList.remove('active');
+            document.getElementById('btn-tab-track').classList.remove('active');
+            document.getElementById('btn-tab-officer').classList.remove('active');
+
+            if (view === 'public') {
+                document.getElementById('wrapper-public-view').classList.remove('hidden');
+                document.getElementById('btn-tab-public').classList.add('active');
+            } else if (view === 'track') {
+                document.getElementById('wrapper-track-view').classList.remove('hidden');
+                document.getElementById('btn-tab-track').classList.add('active');
+            } else if (view === 'officer') {
+                document.getElementById('btn-tab-officer').classList.add('active');
+                if (sessionStorage.getItem('isMegaAdminIn') === 'true') {
+                    document.getElementById('view-officer-dashboard').classList.remove('hidden');
+                    renderLiveDatabase();
+                } else {
+                    document.getElementById('view-officer-login').classList.remove('hidden');
+                }
+            }
+            toggleMenu(); 
+        }
+
+        function handleOfficerLogin(e) {
+            e.preventDefault();
+            if (document.getElementById('off-user').value.trim() === localStorage.getItem('adminUser') && document.getElementById('off-pass').value.trim() === localStorage.getItem('adminPass')) {
+                sessionStorage.setItem('isMegaAdminIn', 'true');
+                document.getElementById('vipUploadPanel').classList.remove('hidden'); 
+                switchView('officer');
+            } else { alert("❌ गलत आईडी या पासवर्ड!"); }
+        }
+
+        function logoutOfficer() {
+            sessionStorage.removeItem('isMegaAdminIn');
+            document.getElementById('vipUploadPanel').classList.add('hidden'); 
+            switchView('officer');
+        }
+    </script>
+</body>
+</html>
